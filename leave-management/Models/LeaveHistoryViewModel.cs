@@ -19,7 +19,7 @@ namespace leave_management.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        public DetailsLeaveTypeViewModel LeaveType { get; set; }
+        public  LeaveTypeViewModel LeaveType { get; set; }
 
         public int LeaveTypeId { get; set; }
 
