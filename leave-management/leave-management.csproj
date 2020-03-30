@@ -25,5 +25,6 @@
     <Folder Include="Contracts\" />
     <Folder Include="Repository\" />
     <Folder Include="Mappings\" />
+    <Folder Include="Views\LeaveTypes\" />
   </ItemGroup>
 </Project>
