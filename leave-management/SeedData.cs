@@ -7,18 +7,35 @@ namespace leave_management
     {
         public static void Seed(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+
+            // Delete all roles and all users
+
+            //foreach (var role in roleManager.Roles)
+            //{
+            //    var result = roleManager.DeleteAsync(role).Result;
+            //}
+
+            //foreach (var user in userManager.Users)
+            //{
+            //    var result = userManager.DeleteAsync(user).Result;
+            //}
+
+
             SeedRoles(roleManager);
             SeedUsers(userManager);
 
-            foreach (var role in roleManager.Roles)
-            {
-                System.Diagnostics.Debug.WriteLine($"role: {role}");
-            }
 
-            foreach (var user in userManager.Users)
-            {
-                System.Diagnostics.Debug.WriteLine($"user: {user}");
-            }
+            // Console log all roles and all users 
+
+            //foreach (var role in roleManager.Roles)
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"role: {role}");
+            //}
+
+            //foreach (var user in userManager.Users)
+            //{
+            //    System.Diagnostics.Debug.WriteLine($"user: {user}    username: {user.UserName}    email: {user.Email}");
+            //}
         }
 
         private static void SeedRoles(RoleManager<IdentityRole> roleManager)
@@ -50,8 +67,8 @@ namespace leave_management
             {
                 var user = new IdentityUser
                 {
-                    UserName = "admin",
-                    Email = "admin@localhost"
+                    UserName = "admin@localhost.com",
+                    Email = "admin@localhost.com"
                 };
 
                 var result = userManager.CreateAsync(user, "P@ssword1").Result;
