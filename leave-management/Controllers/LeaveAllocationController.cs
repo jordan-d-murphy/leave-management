@@ -75,6 +75,13 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult ListEmployees()
+        {
+            var employees = _userManager.GetUsersInRoleAsync("Employee").Result;
+            var model = _mapper.Map<List<EmployeeViewModel>>(employees);
+            return View(model);
+        }
+
         // GET: LeaveTypes/Details/5
         public ActionResult Details(int id)
         {
