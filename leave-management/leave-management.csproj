@@ -28,5 +28,6 @@
     <Folder Include="Repository\" />
     <Folder Include="Mappings\" />
     <Folder Include="Views\LeaveTypes\" />
+    <Folder Include="Views\LeaveAllocation\" />
   </ItemGroup>
 </Project>

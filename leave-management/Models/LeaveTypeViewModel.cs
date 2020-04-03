@@ -12,7 +12,7 @@ namespace leave_management.Models
 
         [Required]
         [Display(Name = "Defualt Number of Days")]
-        [Range(1, 25, ErrorMessage = "Please enter a valid number between 1 and 25.")]
+        [Range(1, 100, ErrorMessage = "Please enter a valid number between 1 and 100.")]
         public int DefaultDays { get; set; }
 
         [Display(Name = "Date Created")]
