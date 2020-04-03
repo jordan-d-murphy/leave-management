@@ -8,11 +8,12 @@ namespace leave_management.Models
     public class LeaveAllocationViewModel
     {
         public int Id { get; set; }
-
-        [Required]
+       
         public int NumberOfDays { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public int Period { get; set; }
 
         public EmployeeViewModel Employee { get; set; }
 
