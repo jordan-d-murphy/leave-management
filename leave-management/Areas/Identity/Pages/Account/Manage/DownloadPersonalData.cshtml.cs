@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using leave_management.Data;
+
 
 namespace leave_management.Areas.Identity.Pages.Account.Manage
 {

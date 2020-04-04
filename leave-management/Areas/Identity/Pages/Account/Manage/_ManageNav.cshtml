@@ -1,4 +1,5 @@
-﻿@inject SignInManager<Employee> SignInManager
+﻿@using leave_management.Data
+@inject SignInManager<Employee> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
