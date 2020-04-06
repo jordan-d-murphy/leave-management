@@ -46,4 +46,17 @@ namespace leave_management.Models
         [Display(Name = "Leave Types")]
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
     }
+
+    public class AdminLeaveRequestViewViewModel
+    {
+        public int TotalRequests { get; set; }
+
+        public int PendingRequests { get; set; }
+
+        public int ApprovedRequests { get; set; }
+
+        public int RejectedRequests { get; set; }
+
+        public List<LeaveRequestViewModel> LeaveRequests { get; set; }
+    }
 }
