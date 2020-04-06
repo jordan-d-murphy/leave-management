@@ -84,7 +84,7 @@ namespace leave_management.Controllers
 
         // GET: LeaveTypes/Details/5
         public ActionResult Details(string id)
-        {            
+        {
             var employee = _mapper.Map<EmployeeViewModel>(_userManager.FindByIdAsync(id).Result);
             var allocations = _mapper.Map<List<LeaveAllocationViewModel>>(_leaveAllocationRepo.GetLeaveAllocationsByEmployee(id));
             var model = new ViewAllocationsViewModel
@@ -156,7 +156,7 @@ namespace leave_management.Controllers
 
                 var record = _leaveAllocationRepo.FindById(model.Id);
                 record.NumberOfDays = model.NumberOfDays;
-                
+
                 var isSuccess = _leaveAllocationRepo.Update(record);
                 if (!isSuccess)
                 {
@@ -165,7 +165,7 @@ namespace leave_management.Controllers
                 }
                 return RedirectToAction(nameof(Details), new { id = model.EmployeeId });
             }
-            catch 
+            catch
             {
                 return View(model);
             }
@@ -188,7 +188,7 @@ namespace leave_management.Controllers
         // POST: LeaveTypes/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, LeaveHistoryViewModel model)
+        public ActionResult Delete(int id, LeaveRequestViewModel model)
         {
             //try
             //{

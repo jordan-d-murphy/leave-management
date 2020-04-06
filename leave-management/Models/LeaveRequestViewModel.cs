@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace leave_management.Models
 {
-    public class LeaveHistoryViewModel
+    public class LeaveRequestViewModel
     {
         public int Id { get; set; }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace leave_management.Data
 {
-    public class LeaveHistory
+    public class LeaveRequest
     {
         [Key]
         public int Id { get; set; }

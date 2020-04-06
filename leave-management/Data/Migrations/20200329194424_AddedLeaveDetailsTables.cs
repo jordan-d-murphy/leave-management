@@ -50,7 +50,7 @@ namespace leave_management.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LeaveHistories",
+                name: "LeaveRequest",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -66,21 +66,21 @@ namespace leave_management.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LeaveHistories", x => x.Id);
+                    table.PrimaryKey("PK_LeaveRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LeaveHistories_AspNetUsers_ApprovedById",
+                        name: "FK_LeaveRequests_AspNetUsers_ApprovedById",
                         column: x => x.ApprovedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LeaveHistories_LeaveTypes_LeaveTypeId",
+                        name: "FK_LeaveRequests_LeaveTypes_LeaveTypeId",
                         column: x => x.LeaveTypeId,
                         principalTable: "LeaveTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LeaveHistories_AspNetUsers_RequestingEmployeeId",
+                        name: "FK_LeaveRequests_AspNetUsers_RequestingEmployeeId",
                         column: x => x.RequestingEmployeeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -98,18 +98,18 @@ namespace leave_management.Data.Migrations
                 column: "LeaveTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaveHistories_ApprovedById",
-                table: "LeaveHistories",
+                name: "IX_LeaveRequests_ApprovedById",
+                table: "LeaveRequests",
                 column: "ApprovedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaveHistories_LeaveTypeId",
-                table: "LeaveHistories",
+                name: "IX_LeaveRequests_LeaveTypeId",
+                table: "LeaveRequests",
                 column: "LeaveTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaveHistories_RequestingEmployeeId",
-                table: "LeaveHistories",
+                name: "IX_LeaveRequests_RequestingEmployeeId",
+                table: "LeaveRequests",
                 column: "RequestingEmployeeId");
         }
 
@@ -119,7 +119,7 @@ namespace leave_management.Data.Migrations
                 name: "LeaveAllocations");
 
             migrationBuilder.DropTable(
-                name: "LeaveHistories");
+                name: "LeaveRequests");
 
             migrationBuilder.DropTable(
                 name: "LeaveTypes");

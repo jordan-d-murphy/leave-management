@@ -143,7 +143,7 @@ namespace leave_management.Controllers
         // POST: LeaveTypes/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, LeaveHistoryViewModel model)
+        public ActionResult Delete(int id, LeaveRequestViewModel model)
         {
             try
             {
@@ -158,14 +158,14 @@ namespace leave_management.Controllers
                 var isSuccess = _repo.Delete(leaveType);
 
                 if (!isSuccess)
-                {                   
+                {
                     return View(model);
                 }
 
                 return RedirectToAction(nameof(Index));
             }
             catch
-            {                
+            {
                 return View(model);
             }
         }
