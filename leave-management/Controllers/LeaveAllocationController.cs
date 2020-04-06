@@ -83,18 +83,16 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveTypes/Details/5
-        public ActionResult Details(int id)
-        {
-            //if (!_repo.isExists(id))
-            //{
-            //    return NotFound();
-            //}
-
-            //var leaveType = _repo.FindById(id);
-            //var model = _mapper.Map<LeaveTypeViewModel>(leaveType);
-
-            //return View(model);
-            return View();
+        public ActionResult Details(string id)
+        {            
+            var employee = _mapper.Map<EmployeeViewModel>(_userManager.FindByIdAsync(id).Result);
+            var allocations = _mapper.Map<List<LeaveAllocationViewModel>>(_leaveAllocationRepo.GetLeaveAllocationsByEmployee(id));
+            var model = new ViewAllocationsViewModel
+            {
+                Employee = employee,
+                LeaveAllocations = allocations
+            };
+            return View(model);
         }
 
         // GET: LeaveTypes/Create
@@ -139,46 +137,38 @@ namespace leave_management.Controllers
         // GET: LeaveTypes/Edit/5
         public ActionResult Edit(int id)
         {
-            //if (!_repo.isExists(id))
-            //{
-            //    return NotFound();
-            //}
-
-            //var leaveType = _repo.FindById(id);
-            //var model = _mapper.Map<LeaveTypeViewModel>(leaveType);
-            //return View(model);
-            return View();
+            var leaveAllocation = _leaveAllocationRepo.FindById(id);
+            var model = _mapper.Map<EditLeaveAllocationViewModel>(leaveAllocation);
+            return View(model);
         }
 
         // POST: LeaveTypes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(LeaveTypeViewModel model)
+        public ActionResult Edit(EditLeaveAllocationViewModel model)
         {
-            //try
-            //{
-            //    // TODO: Add update logic here
-            //    if (!ModelState.IsValid)
-            //    {
-            //        return View(model);
-            //    }
-            //    var leaveType = _mapper.Map<LeaveType>(model);
-            //    var isSuccess = _repo.Update(leaveType);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
 
-            //    if (!isSuccess)
-            //    {
-            //        ModelState.AddModelError("", "Something went wrong trying to Edit your Leave Type.");
-            //        return View(model);
-            //    }
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //catch
-            //{
-            //    ModelState.AddModelError("", "Something went wrong trying to Edit your Leave Type.");
-            //    return View(model);
-            //}
-            return View();
+                var record = _leaveAllocationRepo.FindById(model.Id);
+                record.NumberOfDays = model.NumberOfDays;
+                
+                var isSuccess = _leaveAllocationRepo.Update(record);
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Error while saving edits.");
+                    return View(model);
+                }
+                return RedirectToAction(nameof(Details), new { id = model.EmployeeId });
+            }
+            catch 
+            {
+                return View(model);
+            }
         }
 
         // GET: LeaveTypes/Delete/5
