@@ -21,17 +21,20 @@ namespace leave_management.Controllers
     {
         private readonly ILeaveRequestRepository _leaveRequestRepo;
         private readonly ILeaveTypeRepository _leaveTypeRepo;
+        private readonly ILeaveAllocationRepository _leaveAllocationRepo;
         private readonly IMapper _mapper;
         private readonly UserManager<Employee> _userManager;
 
         public LeaveRequestController(
             ILeaveRequestRepository leaveRequestRepo,
             ILeaveTypeRepository leaveTypeRepo,
+            ILeaveAllocationRepository leaveAllocationRepo,
             IMapper mapper,
             UserManager<Employee> userManager)
         {
             _leaveRequestRepo = leaveRequestRepo;
             _leaveTypeRepo = leaveTypeRepo;
+            _leaveAllocationRepo = leaveAllocationRepo;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -74,9 +77,71 @@ namespace leave_management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection formCollection)
+        public ActionResult Create(CreateLeaveRequestViewModel model)
         {
-            return View();
+            
+            try
+            {
+                var startDate = Convert.ToDateTime(model.StartDate);
+                var endDate = Convert.ToDateTime(model.EndDate);
+
+                var leaveTypes = _leaveTypeRepo.FindAll();
+                var leaveTypeItems = leaveTypes.Select(q => new SelectListItem
+                {
+                    Text = q.Name,
+                    Value = q.Id.ToString()
+                });
+                model.LeaveTypes = leaveTypeItems;
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                if (DateTime.Compare(startDate, endDate) > 0)
+                {
+                    ModelState.AddModelError("", "Start date cannot be farther in the future than the end date.");
+                    return View(model);
+                }
+
+                var employee = _userManager.GetUserAsync(User).Result;
+                var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employee.Id, model.LeaveTypeId);
+                int daysRequested = (int) (startDate - endDate).TotalDays;
+
+                if (daysRequested > allocation.NumberOfDays)
+                {
+                    ModelState.AddModelError("", "You do not have enough days to make this request.");
+                    return View(model);
+                }
+
+                var leaveRequestModel = new LeaveRequestViewModel
+                {
+                    RequestingEmployeeId = employee.Id,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Approved = null,
+                    DateRequested = DateTime.Now,
+                    DateActioned = DateTime.Now,
+                    LeaveTypeId = model.LeaveTypeId
+                };
+
+                var leaveRequest = _mapper.Map<LeaveRequest>(leaveRequestModel);
+                var isSuccess = _leaveRequestRepo.Create(leaveRequest);
+
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Something went wrong trying to add your Leave Request to the database.");
+                    return View(model);
+                }
+
+                return RedirectToAction(nameof(Index), "Home");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Something went wrong trying to create your Leave Request:\n {ex.Message}");
+                return View(model);
+            }
         }
 
         public ActionResult Edit(int id)

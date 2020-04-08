@@ -71,11 +71,11 @@ namespace leave_management.Models
     {
         [Display(Name = "Start Date")]
         [Required]       
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [Required]        
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
 
