@@ -26,5 +26,11 @@
     <Folder Include="Views\LeaveTypes\" />
     <Folder Include="Views\LeaveAllocation\" />
     <Folder Include="Views\LeaveRequest\" />
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200403171426_AddedDefaultDaysAndPeriod.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200329190645_AddedEmployeeDataPoints.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200406184522_RenameLeaveHistoryToLeaveRequest.Designer.cs" />
   </ItemGroup>
 </Project>

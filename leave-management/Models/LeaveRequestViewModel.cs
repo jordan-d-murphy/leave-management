@@ -17,10 +17,12 @@ namespace leave_management.Models
 
         [Required]
         [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
         [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Leave Type")]
@@ -33,6 +35,7 @@ namespace leave_management.Models
         public DateTime DateRequested { get; set; }
 
         [Display(Name = "Date Actioned")]
+        [DataType(DataType.Date)]
         public DateTime DateActioned { get; set; }
 
         public bool? Approved { get; set; }
@@ -63,4 +66,21 @@ namespace leave_management.Models
 
         public List<LeaveRequestViewModel> LeaveRequests { get; set; }
     }
+
+    public class CreateLeaveRequestViewModel
+    {
+        [Display(Name = "Start Date")]
+        [Required]       
+        public DateTime StartDate { get; set; }
+
+        [Display(Name = "End Date")]
+        [Required]        
+        public DateTime EndDate { get; set; }
+
+        public IEnumerable<SelectListItem> LeaveTypes { get; set; }
+
+        [Display(Name = "Leave Type")]
+        public int LeaveTypeId { get; set; }
+    }
+
 }
