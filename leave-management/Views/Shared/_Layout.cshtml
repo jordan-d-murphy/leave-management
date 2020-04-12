@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="LeaveRequest" asp-action="Create">Apply For Leave</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="LeaveRequest" asp-action="MyLeave">My Leave</a>
+                        </li>
 
                         @if (SignInManager.IsSignedIn(User))
                         {
@@ -46,7 +49,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" asp-controller="LeaveTypes" asp-action="Index">Leave Types</a>
                                         <a class="dropdown-item" asp-controller="LeaveAllocation" asp-action="Index">Leave Allocations</a>
-                                        <a class="dropdown-item" asp-controller="LeaveRequest" asp-action="Index">Leave Applications</a>
+                                        <a class="dropdown-item" asp-controller="LeaveRequest" asp-action="Index">Leave Requests</a>
                                         <a class="dropdown-item" asp-controller="LeaveAllocation" asp-action="ListEmployees">Employees</a>
                                     </div>
                                 </li>

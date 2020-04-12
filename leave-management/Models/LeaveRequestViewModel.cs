@@ -48,6 +48,12 @@ namespace leave_management.Models
 
         [Display(Name = "Leave Types")]
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
+
+        [Display(Name = "Employee Comments")]
+        [MaxLength(300)]
+        public string RequestComments { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 
     public class AdminLeaveRequestViewViewModel
@@ -81,6 +87,17 @@ namespace leave_management.Models
 
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
+
+        [Display(Name = "Employee Comments")]
+        [MaxLength(300)]
+        public string RequestComments { get; set; }
+    }
+
+    public class EmployeeLeaveRequestViewViewModel
+    {
+        public List<LeaveAllocationViewModel> LeaveAllocations { get; set; }
+
+        public List<LeaveRequestViewModel> LeaveRequests { get; set; }
     }
 
 }

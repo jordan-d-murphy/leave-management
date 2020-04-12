@@ -67,21 +67,21 @@ else
             @Html.DisplayFor(model => model.LeaveType.Name)
         </dd>
 
-        @*
 
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.RequestComments)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.RequestComments)
-            </dd>
 
-        *@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RequestComments)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RequestComments)
+        </dd>
+
+
 
     </dl>
 </div>
 <div>
-    @if (Model.Approved == null)
+    @if (Model.Approved == null && !Model.Cancelled)
     {
         <a class="btn btn-success" asp-action="ApproveRequest" asp-route-id="@Model.Id">
             <i class="fa fa-check"></i> Approve

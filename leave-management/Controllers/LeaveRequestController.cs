@@ -109,6 +109,25 @@ namespace leave_management.Controllers
             }
         }
 
+        public ActionResult MyLeave()
+        {
+            var employee = _userManager.GetUserAsync(User).Result;
+            var employeeId = employee.Id;
+            var employeeAllocations = _leaveAllocationRepo.GetLeaveAllocationsByEmployee(employeeId);
+            var employeeRequests = _leaveRequestRepo.GetLeaveRequestsByEmployee(employeeId);
+
+            var employeeAllocationsModel = _mapper.Map<List<LeaveAllocationViewModel>>(employeeAllocations);
+            var employeeRequestsModel = _mapper.Map<List<LeaveRequestViewModel>>(employeeRequests);
+
+            var model = new EmployeeLeaveRequestViewViewModel
+            {
+                LeaveAllocations = employeeAllocationsModel,
+                LeaveRequests = employeeRequestsModel
+            };
+
+            return View(model);
+        }
+
         public ActionResult Create()
         {
             var leaveTypes = _leaveTypeRepo.FindAll();
@@ -171,7 +190,8 @@ namespace leave_management.Controllers
                     Approved = null,
                     DateRequested = DateTime.Now,
                     DateActioned = DateTime.Now,
-                    LeaveTypeId = model.LeaveTypeId
+                    LeaveTypeId = model.LeaveTypeId,
+                    RequestComments = model.RequestComments
                 };
 
                 var leaveRequest = _mapper.Map<LeaveRequest>(leaveRequestModel);
@@ -183,7 +203,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyLeave));
 
             }
             catch (Exception ex)
@@ -191,6 +211,14 @@ namespace leave_management.Controllers
                 ModelState.AddModelError("", $"Something went wrong trying to create your Leave Request:\n {ex.Message}");
                 return View(model);
             }
+        }
+
+        public ActionResult CancelRequest(int id)
+        {
+            var leaveRequest = _leaveRequestRepo.FindById(id);
+            leaveRequest.Cancelled = true;
+            _leaveRequestRepo.Update(leaveRequest);
+            return RedirectToAction(nameof(MyLeave));
         }
 
         public ActionResult Edit(int id)
