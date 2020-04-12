@@ -99,35 +99,48 @@
                     @Html.DisplayFor(modelItem => item.DateRequested)
                 </td>
                 <td>
+
                     @*
-        @if (item.Cancelled)
-        {
-            <span class="badge badge-secondary">Cancelled</span>
-        }
-        else if (item.Approved == true)
-        {
-            <span class="badge badge-success">Approved</span>
-        }
-        else if (item.Approved == false)
-        {
-            <span class="badge badge-danger">Rejected</span>
-        }
-        else
-        {
-            <span class="badge badge-warning">Pending Approval</span>
-        }
-                    *@
-                </td>
-                <td>
-                    @*
-         @if (!item.Cancelled)
-        {
-            <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">
-                <i class="fa fa-file"></i>Review
-            </a>
-        }
+
+                        @if (item.Cancelled)
+                        {
+                            <span class="badge badge-secondary">Cancelled</span>
+                        }
+                        else
 
                     *@
+
+                    @if (item.Approved == true)
+                    {
+                        <span class="badge badge-success">Approved</span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span class="badge badge-danger">Rejected</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">Pending Approval</span>
+                    }
+
+                </td>
+                <td>
+
+                    @*
+
+                            @if (!item.Cancelled)
+                        {
+                            <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">
+                                <i class="fa fa-file"></i>Review
+                            </a>
+                        }
+
+                    *@
+
+
+                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fa fa-file"></i> Review
+                    </a>
 
                 </td>
             </tr>
