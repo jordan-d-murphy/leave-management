@@ -58,7 +58,7 @@ namespace leave_management.Models
 
     public class AdminLeaveRequestViewViewModel
     {
-        [Display(Name = "Total Number of Requests")]
+        [Display(Name = "Total Requests")]
         public int TotalRequests { get; set; }
 
         [Display(Name = "Pending Requests")]
